@@ -15,8 +15,17 @@ export PATH="$HOME/.local/bin:$PATH"
 
  Since without setting the environment path, the 'colossalai: command not found' error will alert.
 
-### Results for the reproduction
-Please refer to the training and evaluation logs: `train_log.txt` and `test_log.txt`
+### Used model and dataset
+
+The used model is resnet18 and dataset is CIFAR10.
+
+### Reproduction results
+
+| Model     | Booster DDP with FP32 | Booster DDP with FP16 | Booster Low Level Zero | Booster Gemini |
+| --------- | --------------------- | --------------------- | ---------------------- | -------------- |
+| ResNet-18 | 85.22%                | 85.16%                | 84.63%                 | 84.63%         |
+
+For complete training and evaluation logs, please refer to: `train_log_fp32.txt`, `train_log_fp16.txt`, `train_log_low_level_zero.txt` and `test_log_fp16.txt`, `test_log_fp32.txt`
 
 
 ### Install requirements
@@ -26,16 +35,18 @@ pip install -r requirements.txt
 ```
 
 ### Train
-The folders will be created automatically.
 ```bash
 # train with torch DDP with fp32
-colossalai run --nproc_per_node 2 train.py -c ./ckpt-fp32
+colossalai run --nproc_per_node 1 train.py -c ./ckpt-fp32
 
 # train with torch DDP with mixed precision training
-colossalai run --nproc_per_node 2 train.py -c ./ckpt-fp16 -p torch_ddp_fp16
+colossalai run --nproc_per_node 1 train.py -c ./ckpt-fp16 -p torch_ddp_fp16
 
 # train with low level zero
-colossalai run --nproc_per_node 2 train.py -c ./ckpt-low_level_zero -p low_level_zero
+colossalai run --nproc_per_node 1 train.py -c ./ckpt-low_level_zero -p low_level_zero
+
+# train with gemini
+colossalai run --nproc_per_node 1 train.py -c ./ckpt-gemini -p gemini
 ```
 
 ### Eval
@@ -49,6 +60,9 @@ python eval.py -c ./ckpt-fp16 -e 80
 
 # evaluate low level zero training
 python eval.py -c ./ckpt-low_level_zero -e 80
+
+# evaluate gemini training
+python eval.py -c ./ckpt-gemini -e 80
 ```
 
 Expected accuracy performance will be:
@@ -56,5 +70,3 @@ Expected accuracy performance will be:
 | Model     | Single-GPU Baseline FP32 | Booster DDP with FP32 | Booster DDP with FP16 | Booster Low Level Zero | Booster Gemini |
 | --------- | ------------------------ | --------------------- | --------------------- | ---------------------- | -------------- |
 | ResNet-18 | 85.85%                   | 84.91%                | 85.46%                | 84.50%                 | 84.60%         |
-
-**Note: the baseline is adapted from the [script](https://pytorch-tutorial.readthedocs.io/en/latest/tutorial/chapter03_intermediate/3_2_2_cnn_resnet_cifar10/) to use `torchvision.models.resnet18`**

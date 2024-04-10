@@ -2,3 +2,5 @@ data
 checkpoint
 ckpt-fp16
 ckpt-fp32
+ckpt-low_level_zero
+ckpt-gemini

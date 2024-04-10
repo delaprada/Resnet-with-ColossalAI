@@ -1,0 +1,14 @@
+[04/10/24 19:58:45] INFO     colossalai - colossalai - INFO:                    
+                             /home/zhuoran/.conda/envs/colo/lib/python3.9/site-p
+                             ackages/colossalai/initialize.py:67 launch         
+                    INFO     colossalai - colossalai - INFO: Distributed        
+                             environment is initialized, world size: 1          
+Files already downloaded and verified
+Files already downloaded and verified
+Accuracy of the model on the test images: 84.62 %
+
+====== Training on All Nodes =====
+127.0.0.1: success
+
+====== Stopping All Nodes =====
+127.0.0.1: finish
