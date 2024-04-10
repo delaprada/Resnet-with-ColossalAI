@@ -1,0 +1,14 @@
+[04/09/24 22:15:18] INFO     colossalai - colossalai - INFO:                    
+                             /home/zhuoran/.local/lib/python3.11/site-packages/c
+                             olossalai/initialize.py:68 launch                  
+                    INFO     colossalai - colossalai - INFO: Distributed        
+                             environment is initialized, world size: 1          
+Files already downloaded and verified
+Files already downloaded and verified
+Accuracy of the model on the test images: 85.22 %
+
+====== Training on All Nodes =====
+127.0.0.1: success
+
+====== Stopping All Nodes =====
+127.0.0.1: finish
